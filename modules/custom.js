@@ -16,7 +16,14 @@ function getConnection() {
 function getNavData(callback) {
     connPool = getConnection();
     var sql = 'SELECT * FROM twitter_accounts;';
-    var data;
+    connPool.query(sql, callback);
+}
+
+function getProfileData(id, callback) {
+    console.log('getProfileData Called');
+    connPool = getConnection();
+    var sql = 'SELECT ta_url_name, ta_screen_name FROM twitter_accounts WHERE ta_id = ' + id + ';';
+    console.log('about to send query');
     connPool.query(sql, callback);
 }
 
@@ -33,3 +40,17 @@ exports.renderNavbar = function (req, res) {
         }
     });
 };
+
+exports.sendProfileData = function (res, id) {
+    console.log('sendProfileData Called')
+    getProfileData(id, function (err, result) {
+        console.log('getProfileData Callback Called');
+        if (err) {
+            console.log("Error in query: ")
+            console.log(err);
+            res.status(500).json(err);
+        } else {
+            res.status(200).json(result.rows[0]);
+        }
+    });
+}
