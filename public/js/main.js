@@ -11,8 +11,14 @@ function embedProfile(data) {
         $('.twitterBox').html('<p class="errorMessage">Error getting tweets</p>')
     }
     else {
-        $('.twitterBox').html('<a class="twitter-timeline" href="https://twitter.com/' + data.ta_url_name +'">Tweets by ' + data.ta_screen_name + '</a>' +
-        '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
+        $('.twitterBox').html('');
+        twttr.widgets.createTimeline(
+            {
+              sourceType: "profile",
+              screenName: data.ta_url_name
+            },
+            document.getElementById('mainTwitterBox')
+          );
     }
 }
 
