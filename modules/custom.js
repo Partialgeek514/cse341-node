@@ -27,6 +27,13 @@ function getProfileData(id, callback) {
     connPool.query(sql, callback);
 }
 
+function getHashData(callback) {
+    console.log('getHashData Called');
+    connPool = getConnection();
+    var sql = 'SELECT * FROM hashtags;';
+    connPool.query(sql, callback);
+}
+
 exports.renderNavbar = function (req, res) {
     getNavData(function (err, result) {
         if (err) {
@@ -34,9 +41,21 @@ exports.renderNavbar = function (req, res) {
             console.log(err);
             res.render('navData', err)
         } else {
-            console.log(result.rows[0].ta_id);
-            console.log(result.rows[0].ta_screen_name);
-            res.status(200).render('pages/index', {navData: result.rows});
+            getHashData(function (err, hashResult) {
+                if (err) {
+                    console.log("Error in query: ")
+                    console.log(err);
+                    res.render('navData', err)
+                } else {
+                    console.log(result.rows[0].ta_id);
+                    console.log(result.rows[0].ta_screen_name);
+                    console.log(hashResult.rows[0].hashtag_id);
+                    console.log(hashResult.rows[0].hashtag_name);
+                    res.status(200).render('pages/index', {
+                        navData: [result.rows, hashResult.rows]
+                    });
+                }
+            });
         }
     });
 };

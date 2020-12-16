@@ -19,7 +19,7 @@ h1 {
   font-size: xx-large;
 }
 
-.navbar {
+.navbar, .hashFilter {
   list-style: none;
   padding: 0;
   display: flex;
@@ -27,6 +27,13 @@ h1 {
   justify-content: space-between;
   width: 70%;
   margin: 5px auto 0 auto;
+}
+
+.hashFilter {
+  background-color: rgb(125, 173, 245);
+  margin-top: 0;
+  justify-content: center;
+  color: white;
 }
 
 .navItem {

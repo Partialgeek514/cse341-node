@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Church Tweets!</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Church Tweets!</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -16,8 +16,13 @@
   </header>
   <nav>
     <ul class="navbar">
-      <% navData.forEach(row => { %>
-        <%- '<li class="navItem" id="' + row.ta_id + '">' + row.ta_screen_name + '</li>' %> 
+      <% navData[0].forEach(row => { %>
+      <%- '<li class="navItem" id="' + row.ta_id + '">' + row.ta_screen_name + '</li>' %>
+      <% }); %>
+    </ul>
+    <ul class="hashFilter">
+      <% navData[1].forEach(row => { %>
+      <%- '<li><input type="radio" name="hashFilter" value="' + row.hashtag_id +'">#' + row.hashtag_name +'</input></li>' %>
       <% }); %>
     </ul>
   </nav>
